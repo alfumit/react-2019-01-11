@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { Component, Fragment } from 'react'
 import ReactDatePicker from 'react-datepicker'
 
 import 'react-datepicker/dist/react-datepicker.css'
@@ -9,13 +9,12 @@ export default class DatePicker extends Component {
     endDate: new Date()
   }
 
-  handleChangeStart = (startDate) => this.setState({ startDate });
-  handleChangeEnd = (endDate) => this.setState({ endDate });
-
+  handleChangeStart = (startDate) => this.setState({ startDate })
+  handleChangeEnd = (endDate) => this.setState({ endDate })
 
   render() {
     return (
-      <React.Fragment>
+      <Fragment>
         <ReactDatePicker
           dropdownMode={'select'}
           selected={this.state.startDate}
@@ -32,7 +31,7 @@ export default class DatePicker extends Component {
           endDate={this.state.endDate}
           onChange={this.handleChangeEnd}
         />
-      </React.Fragment>
+      </Fragment>
     )
   }
 }
