@@ -35,6 +35,20 @@ describe('Article List', function () {
         expect(wrapper.find('.test--article_body').length)
             .toEqual(1)
     });
+    
+    it('should hide with animation article after second click', () => {
+        const wrapper = mount(
+          <ArticleList articles = {mockedArticles} />
+        )
+        
+        wrapper.find('.test--article__btn').at(0).simulate('click');
+        wrapper.find('.test--article__btn').at(0).simulate('click');
+        setTimeout(() => {
+            expect(wrapper.find('.test--article_body').length)
+            .toEqual(0)
+        },3100)
+        
+    });
 
     it('should call fetch data on init', (done) => {
         const wrapper = mount(
