@@ -16,7 +16,7 @@ class CommentList extends Component {
         const { isOpen, toggleOpenItem } = this.props
         return (
             <div>
-                <button onClick={toggleOpenItem}>
+                <button onClick={toggleOpenItem} className='test--comments-btn'>
                     {isOpen ? 'hide comments' : 'show comments'}
                 </button>
                 {isOpen ? this.getBody() : null}
