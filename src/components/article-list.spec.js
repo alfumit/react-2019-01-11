@@ -10,7 +10,7 @@ describe('Article List', function () {
     it('should render', () => {
         const wrapper = mount(
             <ArticleList articles = {mockedArticles} />
-        )
+        );
 
         expect(wrapper.find('.test--art__container').length)
             .toEqual(7)
@@ -19,7 +19,7 @@ describe('Article List', function () {
     it('should render without open articles', () => {
         const wrapper = render(
             <ArticleList articles = {mockedArticles} />
-        )
+        );
 
         expect(wrapper.find('.test--article_body').length)
             .toEqual(0)
@@ -28,26 +28,28 @@ describe('Article List', function () {
     it('should show article text after click on button', () => {
         const wrapper = mount(
             <ArticleList articles = {mockedArticles} />
-        )
+        );
 
         wrapper.find('.test--article__btn').at(0).simulate('click');
 
         expect(wrapper.find('.test--article_body').length)
             .toEqual(1)
     });
-    
-    it('should hide with animation article after second click', () => {
+
+    it('should hide with animation article after second click', (done) => {
         const wrapper = mount(
           <ArticleList articles = {mockedArticles} />
-        )
-        
+        );
+
         wrapper.find('.test--article__btn').at(0).simulate('click');
         wrapper.find('.test--article__btn').at(0).simulate('click');
+
         setTimeout(() => {
-            expect(wrapper.find('.test--article_body').length)
-            .toEqual(0)
-        },3100)
-        
+        	wrapper.update();
+            expect(wrapper.find('.test--article_body').length).toEqual(0);
+	        done()
+        },4000)
+
     });
 
     it('should call fetch data on init', (done) => {
