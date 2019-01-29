@@ -4,6 +4,7 @@ import {increment} from '../../ac';
 
 class Counter extends Component {
     render() {
+        console.log('render counter');
         return (
             <div>
                 <h2>{this.props.countProp}</h2>

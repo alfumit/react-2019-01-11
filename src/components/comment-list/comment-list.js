@@ -1,11 +1,11 @@
 import React, { Component } from 'react'
-import Comment, {TypeComment} from '../comment/comment'
+import Comment from '../comment/comment'
 import toggleOpen from '../../decorators/toggleOpen'
 import PropTypes from 'prop-types';
 import CSSTransition from 'react-addons-css-transition-group'
 import './comment-list.css';
 
-export const TypeComments = PropTypes.arrayOf(TypeComment)
+export const TypeComments = PropTypes.arrayOf(PropTypes.string)
 
 class CommentList extends Component {
     static propTypes = {
@@ -46,9 +46,9 @@ class CommentList extends Component {
 
         const body = comments.length ? (
             <ul>
-                {comments.map((comment) => (
-                    <li key={comment.id} className="test--comment-list__item">
-                        <Comment comment={comment} />
+                {comments.map((id) => (
+                    <li key={id} className="test--comment-list__item">
+                        <Comment id={id} />
                     </li>
                 ))}
             </ul>
