@@ -8,7 +8,7 @@ export const articlesSelector = createSelector(
     articlesMapSelector,
     (articlesMap) => articlesMap.valueSeq().toArray()
 )
-export const commentsSelector = (store) => store.comments
+export const commentsSelector = (store) => store.comments.entities
 export const idSelector = (_, ownProps) => ownProps.id
 
 export const filteredArticlesSelector = createSelector(

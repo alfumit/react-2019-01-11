@@ -5,8 +5,8 @@ import {
     CHANGE_DATE_RANGE,
     RESET_DATE_RANGE,
     ADD_COMMENT,
-    LOAD_ALL_ARTICLES, LOAD_ARTICLE, START, SUCCESS, FAIL
-} from '../constants';
+    LOAD_ALL_ARTICLES, LOAD_ARTICLE, START, SUCCESS, FAIL, LOAD_ARTICLE_COMMENTS
+} from '../constants'
 
 export const increment = () => ({
     type: INCREMENT
@@ -43,6 +43,25 @@ export function loadAllArticles() {
     return {
         type: LOAD_ALL_ARTICLES,
         callAPI: '/api/article'
+    }
+}
+
+export function loadArticleComments() {
+    return (dispatch) => {
+        dispatch({
+            type: LOAD_ARTICLE_COMMENTS + START,
+        })
+        fetch(`api/comment`)
+            .then(res => res.json())
+            .then(res => dispatch({
+                    type: LOAD_ARTICLE_COMMENTS + SUCCESS,
+                    payload: res
+                })
+            )
+            .catch(error => dispatch({
+                type: LOAD_ARTICLE_COMMENTS + FAIL,
+                error
+            }))
     }
 }
 
