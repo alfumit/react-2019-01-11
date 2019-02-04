@@ -28,7 +28,7 @@ class Article extends PureComponent {
         }
     }
     render() {
-        const {article: {title, loading}, isOpen} = this.props
+        const {article: {title, loading, loaded}, isOpen} = this.props
         return (
             <div>
                 <h3>
@@ -43,7 +43,8 @@ class Article extends PureComponent {
                     transitionEnterTimeout={300}
                     transitionLeaveTimeout={300}
                 >
-                    {loading ? <Loader /> : this.body}
+                    {loading && <Loader />}
+	                {loaded && this.body}
                 </CSSTransition>
             </div>
         )
