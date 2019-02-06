@@ -1,10 +1,7 @@
 import React from 'react';
-import Enzyme, {render, shallow, mount} from 'enzyme';
-import Adapter from 'enzyme-adapter-react-16';
+import {render, mount} from 'enzyme';
 import ArticleList from './article-list';
-import mockedArticles from '../fixtures';
-
-Enzyme.configure({ adapter: new Adapter() });
+import mockedArticles from '../../fixtures';
 
 describe('Article List', function () {
     it('should render', () => {
@@ -30,14 +27,14 @@ describe('Article List', function () {
             <ArticleList articles = {mockedArticles} />
         )
 
-        wrapper.find('.test--article__btn').at(0).simulate('click');
+        clickArticleButton(wrapper)
 
         expect(wrapper.find('.test--article_body').length)
             .toEqual(1)
     });
 
     it('should call fetch data on init', (done) => {
-        const wrapper = mount(
+        mount(
             <ArticleList
                 articles = {mockedArticles}
                 fetchData={() => done()}
@@ -45,4 +42,29 @@ describe('Article List', function () {
         )
     });
 
+    it('should close an article', (done) => {
+        const wrapper = mount(<ArticleList articles={mockedArticles} />)
+
+        expect(wrapper.find('.test--article_body').length).toEqual(0)
+
+        clickArticleButton(wrapper)
+
+        expect(wrapper.find('.test--article_body').length).toEqual(1)
+
+        clickArticleButton(wrapper)
+
+        setTimeout(() => {
+            try {
+                wrapper.simulate('transitionEnd')
+                expect(wrapper.find('.test--article__body').length).toEqual(0)
+                done()
+            } catch (err) {
+                done.fail(err)
+            }
+        }, 600)
+    })
+
+    function clickArticleButton(wrapper) {
+        wrapper.find('.test--article__btn').at(0).simulate('click')
+    }
 });
