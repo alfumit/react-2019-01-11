@@ -23,7 +23,6 @@ class App extends Component {
     }
     
     handleLanguageChange = (lang) => {
-        console.log('chosen language', lang)
         this.setState({language: translations[lang]})
     }
     
