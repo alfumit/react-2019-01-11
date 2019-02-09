@@ -3,13 +3,16 @@ import ReactDOM from 'react-dom';
 import App from './app';
 import store from './store';
 import {Provider} from 'react-redux';
-import {BrowserRouter} from 'react-router-dom';
+import history from './history/history';
+import { ConnectedRouter } from 'connected-react-router'
+
+console.log(history);
 
 ReactDOM.render(
     <Provider store={store}>
-        <BrowserRouter>
+        <ConnectedRouter history={history}>
             <App />
-        </BrowserRouter>
+        </ConnectedRouter>
     </Provider>,
     document.getElementById('root')
 );

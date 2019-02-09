@@ -6,21 +6,19 @@ import {Switch} from 'react-router-dom';
 
 class ArticlesPage extends Component {
     render() {
-        console.log('ArticlesPage match', this.props.match);
         return (
             <div>
                 <ArticleList />
-                <Switch>
-                    <Route path={'/articles/:id'} render={this.getArticle}/>
-                    <Route path={'/articles'} render={() => <h2>Please select an article</h2>}/>
-                </Switch>
+                <Route path={'/articles/:id'} children={this.getArticle}/>
             </div>
         )
     }
 
     getArticle = ({match}) => {
-        console.log('articles match', match);
-         return <Article key={match.params.id} id={match.params.id}/>
+        if (match === null){
+            return <h2>Please select an article</h2>
+        }
+        return <Article key={match.params.id} id={match.params.id}/>
     }
 }
 

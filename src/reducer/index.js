@@ -4,9 +4,12 @@ import articlesReducer from './articles';
 import filtersReducer from './filters';
 import commentsReducer from './comments';
 
-export default combineReducers({
+import { connectRouter } from 'connected-react-router'
+
+export default (history) => combineReducers({
     count: counterReducer,
     articles: articlesReducer,
     comments: commentsReducer,
-    filters: filtersReducer
+    filters: filtersReducer,
+    router: connectRouter(history)
 })

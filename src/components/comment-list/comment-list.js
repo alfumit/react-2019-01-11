@@ -8,6 +8,7 @@ import CommentForm from '../comment-form';
 import {connect} from 'react-redux'
 import Loader from '../common/loader';
 import {loadArticleComments} from '../../ac';
+import {Consumer as AuthConsumer} from '../../contexts/auth';
 
 export const TypeComments = PropTypes.arrayOf(PropTypes.string)
 
@@ -43,6 +44,9 @@ class CommentList extends Component {
                 <button onClick={toggleOpenItem} className="test--comment-list__btn">
                     {isOpen ? 'hide comments' : 'show comments'}
                 </button>
+                <AuthConsumer>
+                    {(contextValue) => (<h3>{contextValue.contextUserName}</h3>)}
+                </AuthConsumer>
                 <CSSTransition
                     transitionName="comment-list"
                     transitionEnterTimeout={300}
