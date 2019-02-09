@@ -9,6 +9,7 @@ import {connect} from 'react-redux'
 import Loader from '../common/loader';
 import {loadArticleComments} from '../../ac';
 import {Consumer as AuthConsumer} from '../../contexts/auth';
+import {Consumer as TranslationConsumer} from '../../contexts/translation';
 
 export const TypeComments = PropTypes.arrayOf(PropTypes.string)
 
@@ -41,20 +42,26 @@ class CommentList extends Component {
         const { isOpen, toggleOpenItem } = this.props
         return (
             <div>
-                <button onClick={toggleOpenItem} className="test--comment-list__btn">
-                    {isOpen ? 'hide comments' : 'show comments'}
-                </button>
-                <AuthConsumer>
-                    {(contextValue) => (<h3>{contextValue.contextUserName}</h3>)}
-                </AuthConsumer>
-                <CSSTransition
-                    transitionName="comment-list"
-                    transitionEnterTimeout={300}
-                    transitionLeaveTimeout={300}
-
-                >
-                    {this.body}
-                </CSSTransition>
+                <TranslationConsumer>
+                    {(context) => (
+                        <>
+                        <button onClick={toggleOpenItem} className="test--comment-list__btn">
+                            {isOpen ? context.buttons.comments.hide : context.buttons.comments.show}
+                        </button>
+                        <AuthConsumer>
+                            {(contextValue) => (<h3>{contextValue.contextUserName}</h3>)}
+                        </AuthConsumer>
+                        <CSSTransition
+                            transitionName="comment-list"
+                            transitionEnterTimeout={300}
+                            transitionLeaveTimeout={300}
+        
+                        >
+                            {this.body}
+                        </CSSTransition>
+                        </>
+                    )}
+                </TranslationConsumer>
             </div>
         )
     }

@@ -9,19 +9,33 @@ import {Route, Switch, Redirect} from 'react-router-dom';
 import Menu from './components/menu';
 import MenuItem from './components/menu-item';
 import {Provider as AuthProvider} from './contexts/auth';
+import {Provider as TranslationProvider} from './contexts/translation';
+import translations from './translations'
 
 class App extends Component {
     state = {
-        userName: ''
+        userName: '',
+        language: translations.en
     }
 
     handleUserNameChange = (userName) => {
         this.setState({userName})
     }
+    
+    handleLanguageChange = (lang) => {
+        console.log('chosen language', lang)
+        this.setState({language: translations[lang]})
+    }
+    
     render() {
         return (
+          <TranslationProvider value={this.state.language}>
             <AuthProvider value={{contextUserName: this.state.userName}}>
                 <div>
+                        <ul>
+                            <li onClick={() => this.handleLanguageChange('en')}>EN</li>
+                            <li onClick={() => this.handleLanguageChange('ru')}>RU</li>
+                        </ul>
                     <UserForm value={this.state.userName} onChange={this.handleUserNameChange}/>
                     <Menu>
                         <MenuItem to={'/counter'}>Counter</MenuItem>
@@ -40,6 +54,7 @@ class App extends Component {
                     </Switch>
                 </div>
             </AuthProvider>
+          </TranslationProvider>
         );
     }
 }

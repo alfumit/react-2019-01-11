@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { addComment } from '../../ac'
+import { Consumer as TranslationConsumer } from '../../contexts/translation'
 import './style.css'
 
 class CommentForm extends Component {
@@ -11,21 +12,25 @@ class CommentForm extends Component {
 
     render() {
         return (
-            <form onSubmit={this.handleSubmit}>
-                user:{' '}
-                <input
-                    value={this.state.user}
-                    onChange={this.handleChange('user')}
-                    className={this.getClassName('user')}
-                />
-                comment:{' '}
-                <input
-                    value={this.state.text}
-                    onChange={this.handleChange('text')}
-                    className={this.getClassName('text')}
-                />
-                <input type="submit" value="submit" disabled={!this.isValidForm()} />
-            </form>
+          <TranslationConsumer>
+              {(context) => (
+                <form onSubmit={this.handleSubmit}>
+                    {context.labels.user}:{' '}
+                    <input
+                        value={this.state.user}
+                        onChange={this.handleChange('user')}
+                        className={this.getClassName('user')}
+                    />
+                    {context.labels.comment}:{' '}
+                    <input
+                        value={this.state.text}
+                        onChange={this.handleChange('text')}
+                        className={this.getClassName('text')}
+                    />
+                    <input type="submit" value="submit" disabled={!this.isValidForm()} />
+                </form>
+              )}
+          </TranslationConsumer>
         )
     }
 
