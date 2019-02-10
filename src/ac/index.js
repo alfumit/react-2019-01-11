@@ -5,7 +5,8 @@ import {
     CHANGE_DATE_RANGE,
     RESET_DATE_RANGE,
     ADD_COMMENT,
-    LOAD_ALL_ARTICLES, LOAD_ARTICLE, START, SUCCESS, FAIL, LOAD_ARTICLE_COMMENTS
+    LOAD_ALL_ARTICLES, LOAD_ARTICLE, START, SUCCESS, FAIL, LOAD_ARTICLE_COMMENTS,
+    LOAD_PAGE_COMMENTS, COMMENTS_PER_PAGE
 } from '../constants';
 
 export const increment = () => ({
@@ -51,6 +52,18 @@ export function loadArticleComments(articleId) {
         type: LOAD_ARTICLE_COMMENTS,
         payload: { articleId },
         callAPI: `/api/comment?article=${articleId}`
+    }
+}
+
+export function loadPageComments(page) {
+    return (dispatch, getState) => {
+        const offset = (page-1)*COMMENTS_PER_PAGE;
+    
+        dispatch({
+            type: LOAD_PAGE_COMMENTS,
+            payload: { page },
+            callAPI: `/api/comment?limit=${COMMENTS_PER_PAGE}&offset=${offset}`
+        })
     }
 }
 
